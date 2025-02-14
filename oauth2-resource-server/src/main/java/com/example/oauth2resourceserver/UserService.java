@@ -13,12 +13,7 @@ public class UserService {
     @PreAuthorize("hasAuthority('SCOPE_user.read')")
     public Map<String, Object> me() {
         var jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return Map.of(
-                "issuer", jwt.getClaim("iss"),
-                "expiry", jwt.getClaim("exp"),
-                "scope", jwt.getClaim("scope"),
-                "username", jwt.getSubject()
-        );
+        return Map.of("name", jwt.getSubject());
     }
 
 }
