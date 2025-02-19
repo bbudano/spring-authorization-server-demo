@@ -1,5 +1,4 @@
 -- copied from https://github.com/spring-projects/spring-session/blob/main/spring-session-jdbc/src/main/resources/org/springframework/session/jdbc/schema-postgresql.sql
-
 CREATE TABLE IF NOT EXISTS SPRING_SESSION (
     PRIMARY_ID CHAR(36) NOT NULL,
     SESSION_ID CHAR(36) NOT NULL,
@@ -23,6 +22,7 @@ CREATE TABLE IF NOT EXISTS SPRING_SESSION_ATTRIBUTES (
    CONSTRAINT SPRING_SESSION_ATTRIBUTES_FK FOREIGN KEY (SESSION_PRIMARY_ID) REFERENCES SPRING_SESSION(PRIMARY_ID) ON DELETE CASCADE
 );
 
+-- copied from https://github.com/spring-projects/spring-security/blob/main/core/src/main/resources/org/springframework/security/core/userdetails/jdbc/users.ddl
 create table if not exists users(username varchar(50) not null primary key, password varchar(500) not null, enabled boolean not null);
 create table if not exists authorities (username varchar(50) not null, authority varchar(50) not null, constraint fk_authorities_users foreign key(username) references users(username));
 create unique index if not exists ix_auth_username on authorities (username, authority);
