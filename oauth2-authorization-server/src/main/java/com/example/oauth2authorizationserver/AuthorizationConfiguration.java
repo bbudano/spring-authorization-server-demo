@@ -10,6 +10,11 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 @Configuration
 public class AuthorizationConfiguration {
 
+    // JdbcOAuth2AuthorizationService causes the following exception in DEBUG logs:
+    // java.lang.ClassNotFoundException: org.springframework.security.cas.jackson2.CasJackson2Module
+    // This is expected behavior, see issue:
+    // https://github.com/spring-projects/spring-authorization-server/issues/1672
+
     @Bean
     JdbcOAuth2AuthorizationConsentService jdbcOAuth2AuthorizationConsentService(JdbcOperations jdbcOperations,
                                                                                 RegisteredClientRepository registeredClientRepository) {
