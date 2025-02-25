@@ -1,0 +1,43 @@
+networks:
+  spring-authorization-server-demo:
+    name: spring-authorization-server-demo
+    driver: bridge
+
+services:
+
+  postgres:
+    image: postgres:15.2
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    hostname: spring-authorization-server-demo-postgres
+    networks:
+      - spring-authorization-server-demo
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+    ports:
+      - "15432:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json
+    depends_on:
+      - postgres
+    networks:
+      - spring-authorization-server-demo
+
+volumes:
+  postgres_data:
+    name: postgres_data
+    driver: local
+  pgadmin_data:
+    name: pgadmin_data
+    driver: local
