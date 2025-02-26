@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 
 import javax.sql.DataSource;
 
@@ -17,7 +18,7 @@ public class UserDetailsConfiguration {
     }
 
     @Bean
-    JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
+    UserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
     }
 
